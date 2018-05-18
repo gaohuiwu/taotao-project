@@ -1,5 +1,8 @@
 package com.taotao.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.taotao.common.pojo.EasyUIDataGridResult;
 import com.taotao.mapper.ItemMapper;
 import com.taotao.pojo.Item;
 import com.taotao.pojo.ItemExample;
@@ -34,5 +37,21 @@ public class ItemServiceImpl implements ItemService {
             item = list.get(0);
         }
         return item;
+    }
+
+    @Override
+    public EasyUIDataGridResult getItemList(int page, int rows) {
+        //分页处理
+        PageHelper.startPage(page, rows);
+        //执行查询
+        ItemExample example = new ItemExample();
+        List<Item> list = itemMapper.selectByExample(example);
+        //取分页信息
+        PageInfo<Item> pageInfo = new PageInfo<>(list);
+        EasyUIDataGridResult result = new EasyUIDataGridResult();
+        result.setTotal(pageInfo.getTotal());
+        result.setRows(list);
+
+        return result;
     }
 }

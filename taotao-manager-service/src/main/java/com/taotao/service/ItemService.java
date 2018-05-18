@@ -1,5 +1,6 @@
 package com.taotao.service;
 
+import com.taotao.common.pojo.EasyUIDataGridResult;
 import com.taotao.pojo.Item;
 
 /**
@@ -11,4 +12,6 @@ import com.taotao.pojo.Item;
 public interface ItemService {
 
     Item getItemById(Long itemId);
+
+    EasyUIDataGridResult getItemList(int page, int rows);
 }
