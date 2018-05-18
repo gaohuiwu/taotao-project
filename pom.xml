@@ -12,6 +12,10 @@
         <module>taotao-parent</module>
         <module>taotao-common</module>
         <module>taotao-manager</module>
+        <module>taotao-manager-pojo</module>
+        <module>taotao-manager-dao</module>
+        <module>taotao-manager-service</module>
+        <module>taotao-manager-web</module>
     </modules>
 
 
