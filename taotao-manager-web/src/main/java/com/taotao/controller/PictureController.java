@@ -1,6 +1,7 @@
 package com.taotao.controller;
 
 import com.taotao.common.pojo.PictureResult;
+import com.taotao.common.utils.JsonUtils;
 import com.taotao.service.PictureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,7 +23,10 @@ public class PictureController {
 
     @RequestMapping("/pic/upload")
     @ResponseBody
-    public PictureResult uploadFile(MultipartFile uploadFile) {
-        return pictureService.uploadPic(uploadFile);
+    public String uploadFile(MultipartFile uploadFile) {
+
+        PictureResult result = pictureService.uploadPic(uploadFile);
+        //需要把java对象手工转成String   解决兼容性问题
+        return JsonUtils.objectToJson(result);
     }
 }
