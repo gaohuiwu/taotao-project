@@ -65,5 +65,12 @@
             <artifactId>logback-classic</artifactId>
             <version>${logback.version}</version>
         </dependency>
+
+        <!--这是fastdfs_client.jar包-->
+        <dependency>
+            <groupId>com.taotao</groupId>
+            <artifactId>fastdfs_client</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 </project>

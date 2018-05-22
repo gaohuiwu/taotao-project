@@ -36,4 +36,12 @@ public class FastdfsTest {
             System.out.println(str);
         }
     }
+
+    @Test
+    public void testFastDFSClient() throws Exception {
+        FastDFSClient client = new FastDFSClient("E:\\Project\\taotao-project\\" +
+                "taotao-manager-web\\src\\main\\resources\\properties\\client.conf");
+        String str = client.uploadFile("G:\\mmexport1511063607015.jpg", "jpg");
+        System.out.println(str);
+    }
 }
