@@ -46,6 +46,13 @@
             <artifactId>commons-fileupload</artifactId>
             <version>${commons-fileupload.version}</version>
         </dependency>
+
+        <!--这是fastdfs_client.jar包-->
+        <dependency>
+            <groupId>com.taotao</groupId>
+            <artifactId>fastdfs_client</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -56,7 +63,7 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <version>2.1.1</version>
                 <configuration>
-                    <webXml>WEB-INF/web.xml</webXml>
+                    <webXml>../taotao-manager-web/src/main/webapp/WEB-INF/web.xml</webXml>
                 </configuration>
             </plugin>
         </plugins>

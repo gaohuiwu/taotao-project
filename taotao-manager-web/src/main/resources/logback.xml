@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration debug="false" scan="true" scanPeriod="30 seconds" packagingData="true">
+
+    <!-- 定义日志文件名称,与工程名一致 -->
+    <property name="APP_NAME" value="taotaoProject"/>
+
+    <!-- 定义日志的根目录 -->
+    <property name="LOG_HOME" value="../logs"/>
+
+    <!-- 设置 logger context 名称,一旦设置不可改变，默认为default -->
+    <contextName>growThInCode</contextName>
+
+    <!--控制台输出console-->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- encoders are by default assigned the type ch.qos.logback.classic.encoder.PatternLayoutEncoder -->
+        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+            <layout class="ch.qos.logback.classic.PatternLayout">
+                <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+            </layout>
+        </encoder>
+    </appender>
+
+    <!-- 正常文件输出设置 -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 当前活动日志文件名 -->
+        <file>${LOG_HOME}/${APP_NAME}.log</file>
+
+        <!-- 文件滚动策略根据%d{patter}中的“patter”而定，此处为每天产生一个文件 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 归档文件名“.zip或.gz结尾”,表示归档文件自动压缩 -->
+            <FileNamePattern>${LOG_HOME}/${APP_NAME}/${APP_NAME}-%d{yyyy-MM-dd}-%i.zip</FileNamePattern>
+            <!--归档文件的最大数量,超出数量就删除旧文件-->
+            <maxHistory>365</maxHistory>
+            <maxFileSize>50MB</maxFileSize>
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS}[%-5level][%thread]%logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 异常文件输出设置，将异常堆栈另外保存一份到单独的文件中，方便查找 -->
+    <appender name="FILE_ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 当前活动日志文件名 -->
+        <file>${LOG_HOME}/${APP_NAME}.error.log</file>
+
+        <!-- 文件滚动策略根据%d{patter}中的“patter”而定，此处为每天产生一个文件 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 归档文件名“.zip或.gz结尾”,表示归档文件自动压缩 -->
+            <FileNamePattern>${LOG_HOME}/${APP_NAME}/${APP_NAME}.error-%d{yyyy-MM-dd}-%i.zip</FileNamePattern>
+            <!--归档文件的最大数量,超出数量就删除旧文件-->
+            <maxHistory>365</maxHistory>
+            <maxFileSize>50MB</maxFileSize>
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS}[%-5level][%thread]%logger{36} - %msg%n</pattern>
+        </encoder>
+
+        <!--只打印错误日志-->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <!--只打印警告日志-->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>WARN</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <!--myibatis log configure-->
+    <logger name="com.apache.ibatis" level="TRACE"/>
+    <logger name="java.sql.Connection" level="DEBUG"/>
+    <logger name="java.sql.Statement" level="DEBUG"/>
+    <logger name="java.sql.PreparedStatement" level="DEBUG"/>
+    <!-- Spring framework logger -->
+    <logger name="org.springframework" level="info"></logger>
+    <!-- com.grow -->
+    <logger name="com.grow" level="info"></logger>
+
+    <logger name="dao" level="debug"/>
+
+
+    <!-- 至多只能配置一个root -->
+    <root level="info">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
+        <appender-ref ref="FILE_ERROR"/>
+    </root>
+
+</configuration>
